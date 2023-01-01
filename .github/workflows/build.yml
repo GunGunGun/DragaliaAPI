@@ -26,3 +26,10 @@ jobs:
         run: dotnet restore DragaliaAPI
       - name: Build
         run: dotnet build DragaliaAPI --configuration Release --no-restore
+      - uses: actions/checkout@v3
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          title: MyReleaseMessage
