@@ -1,0 +1,39 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+env:
+  HUSKY: 0
+
+jobs:
+  build-api:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '7.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore DragaliaAPI
+      - name: Build
+        run: dotnet build DragaliaAPI --configuration Release --no-restore
+      - name: Dir
+        run: dir
+      - name: Ls
+        run: ls
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: D:\a\DragaliaAPI\ # or path/to/artifact
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v3
+
