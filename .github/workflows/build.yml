@@ -33,7 +33,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: D:\a\DragaliaAPI\ # or path/to/artifact
+          path: D:\a\DragaliaAPI\ #
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
 
